@@ -22,11 +22,11 @@ for category in category_dict:
         response_category = requests.get(category_url_main)
         soup = BeautifulSoup(response_category.text, "html.parser")
         links_books = []
-        # Vérifier s'il y a plusieurs pages ou s'il n'y en a qu'une seule
+        # Check s'il y a plusieurs pages ou s'il n'y en a qu'une seule
         try:
             pagination = (soup.find("li", {"class": "current"})).text.strip()
             num_of_page = pagination[-2:].strip()
-            print(num_of_page)
+
         except AttributeError:
             num_of_page = 1
 
