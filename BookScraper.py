@@ -37,7 +37,7 @@ for link in searched_category.find_all('a', href=True):
 
 for category in category_dict:
 
-    if category == "Books" or category == "Add a comment":
+    if category == "Books":
         pass
     else:
         makemydir(category)
@@ -81,13 +81,10 @@ for category in category_dict:
                 table.extend(value)
 
             lst_title.append((soup_book.find("li", {"class": "active"})).text)
-            title = (soup_book.find("li", {"class": "active"})).text
             lst_description.append((soup_book.find("meta", {"name": "description"})['content']).replace("    ", ""))
             lst_category.append(soup_book.find("ul", "breadcrumb").find_next("a").find_next("a").find_next("a").text)
-            lst_image_url.append("https://books.toscrape.com" + (((soup_book.find("div", {"class": "item active"}))
-                                 .find("img")["src"]).replace("../..", "")))
-            image_link = "https://books.toscrape.com" + (((soup_book.find("div", {"class": "item active"}))
-                                                         .find("img")["src"]).replace("../..", ""))
+            lst_image_url.append(str("https://books.toscrape.com" + (((soup_book.find("div", {"class": "item active"}))
+                                 .find("img")["src"]).replace("../..", ""))))
             lst_upc.append((table[0]))
             lst_price_including_tax.append((str(table[3])).replace("Â", ""))
             lst_price_excluding_tax.append((str(table[2])).replace("Â", ""))
@@ -111,7 +108,8 @@ for category in category_dict:
                 # Récupération des images
                 r = requests.get(lst_image_url, stream=True)
                 if r.status_code == 200:
-                    with open((lst_title[0:18]) + ".jpg", 'wb') as f:
+                    with open((lst_title[0:18].replace("*", "")).replace("?", "").replace(".", "")
+                              .replace("\"", "").replace(":", "") + ".jpg", 'wb') as f:
                         r.raw.decode_content = True
                         shutil.copyfileobj(r.raw, f)
 
