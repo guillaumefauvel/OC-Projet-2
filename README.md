@@ -4,8 +4,8 @@
 
 ## Fonction
 
-Le programme BookScraper est développé en Python. Il permet de récupérer une série de données sur le site https://books.toscrape.com.
-Au terme d'un processus ETL il récupère les données désirées et les exporte dans plusieurs fichiers CSV. 
+Le programme BookScraper est développé en Python. Grâce à un processus il permet de récupérer une série de données sur le site https://books.toscrape.com.
+Les données désirées sont identifiées et transformées avant d'être exportées dans plusieurs fichiers CSV, où chaque .csv équivaut à une catégorie de livre. 
 Il récupère également la première de couverture pour chacun des livres. 
 
 ## Utilisation
