@@ -16,10 +16,10 @@ def souper(url):
         return "La requête a échoué."
 
 
-# Définition de la fonction makemydir() : Permet de créer un fichier et de ce placer à l'intérieur.
+# Définition de la fonction makemydir() : Permet de créer un fichier et se ce placer à l'intérieur.
 
 
-def makemydir(folder_name):
+def make_my_dir(folder_name):
     try:
         os.makedirs(folder_name)
     except OSError:
@@ -28,7 +28,7 @@ def makemydir(folder_name):
 
 
 # Initialisation du dossier d'export.
-makemydir("Output")
+make_my_dir("Output")
 my_cwd = os.getcwd()
 
 
@@ -36,7 +36,7 @@ soup_main = souper("https://books.toscrape.com")
 searched_category = soup_main.find('ul', class_="nav nav-list")
 category_dict = {}
 
-# Récupération des liens propre à chaque catégorie
+# Récupération des liens propres à chaque catégorie
 for link in searched_category.find_all('a', href=True):
 
     category_name = link.text.strip()
@@ -48,7 +48,7 @@ for category in category_dict:
     if category == "Books":
         pass
     else:
-        makemydir(category)
+        make_my_dir(category)
 
         soup_category = souper(category_dict[category])
         links_books = []
@@ -60,7 +60,7 @@ for category in category_dict:
             num_of_page = 1
 
         # Récupération des liens de chaque livre présent sur la page
-        # S'il y plusieurs pages nous passons à la page suivante
+        # S'il y a plusieurs pages, nous passons à la page suivante
         for i in range(int(num_of_page)):
             links = soup_category.findAll('li', {'class': 'col-xs-6 col-sm-4 col-md-3 col-lg-3'})
 
@@ -93,7 +93,7 @@ for category in category_dict:
             for value in soup_book.find_all("td"):
                 table.extend(value)
 
-            # Ajout des valeurs récupéréés et transformées à leurs listes respectives.
+            # Ajout des valeurs récupérées et transformées à leurs listes respectives.
             list_title.append((soup_book.find("li", {"class": "active"})).text)
             list_description.append((soup_book.find("meta", {"name": "description"})['content']).replace("    ", ""))
             list_category.append(soup_book.find("ul", "breadcrumb").find_next("a").find_next("a").find_next("a").text)
@@ -128,5 +128,5 @@ for category in category_dict:
                         r.raw.decode_content = True
                         shutil.copyfileobj(r.raw, f)
 
-        # Nous avons finis de boucler sur une catégorie, donc nous revenons au dossier parent.
+        # Nous avons fini de boucler sur une catégorie, donc nous revenons au dossier parent.
         os.chdir(my_cwd)
