@@ -24,5 +24,5 @@ Lorsque tout les modules ont été installé vous pouvez lancer le programme en 
 
 ##
 
-*Le programme dure une trentaine de minute*
+*Le programme dure une trentaine de minutes*
 
