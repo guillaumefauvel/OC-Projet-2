@@ -16,7 +16,7 @@ def souper(url):
         return "La requête a échoué."
 
 
-# Définition de la fonction makemydir() : Permet de créer un fichier et se ce placer à l'intérieur.
+# Définition de la fonction makemydir() : Permet de créer un fichier et de se placer à l'intérieur.
 
 
 def make_my_dir(folder_name):
